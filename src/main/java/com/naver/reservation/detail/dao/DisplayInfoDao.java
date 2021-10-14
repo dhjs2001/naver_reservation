@@ -1,6 +1,7 @@
 package com.naver.reservation.detail.dao;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
+
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -13,6 +14,7 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.sql.DataSource;
+
 @Repository
 public class DisplayInfoDao {
 	NamedParameterJdbcTemplate jdbc;

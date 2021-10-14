@@ -48,6 +48,7 @@ button{
     color: #07bf07;
     width:100%;
     height: 3em;
+    cursor:pointer;
 }
 footer{
     color:gray;
@@ -71,8 +72,4 @@ input:focus{
 .error{
     font-weight:normal;
     color:red;
-}
-
-.submit{
-	cursor:pointer;
 }

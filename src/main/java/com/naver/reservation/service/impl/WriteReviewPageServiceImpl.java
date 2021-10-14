@@ -155,14 +155,14 @@ public class WriteReviewPageServiceImpl implements WriteReviewPageService {
 				UUID uuid = UUID.randomUUID();
 				FileInfo fileInfo = new FileInfo();
 				String fileName = uuid + file.getOriginalFilename();
-				String saveFileName = "img/" + uuid + file.getOriginalFilename();
+				String saveFileName = "review_img/" + uuid + file.getOriginalFilename();
 				String contentType = file.getContentType();
 				fileInfo.setFileName(fileName);
 				fileInfo.setSaveFileName(saveFileName);
 				fileInfo.setContentType(contentType);
 				list.add(fileInfo);
 
-				try (FileOutputStream fos = new FileOutputStream("/tmp/review_img" + fileName);
+				try (FileOutputStream fos = new FileOutputStream("/tmp/review_img/" + fileName);
 						InputStream is = file.getInputStream();) {
 					int readCount = 0;
 					byte[] buffer = new byte[1024];

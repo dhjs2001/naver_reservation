@@ -105,6 +105,7 @@ overflow: hidden;
 	line-height: 2em;
 	color: #686868;
 	margin-bottom: 10px;
+	cursor:pointer;
 }
 
 .event-info {
