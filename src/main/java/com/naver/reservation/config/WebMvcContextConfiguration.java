@@ -42,12 +42,12 @@ public class WebMvcContextConfiguration implements WebMvcConfigurer {
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController("/").setViewName("index");
 	}
-	/*
+
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(new LogInterceptor());
 	}
-	*/
+
 	
 	@Bean
 	public MultipartResolver multipartResolver() {
