@@ -216,11 +216,9 @@ font-size: 1em;
 .review-header{
 	text-align:center;
 	background-color:white;
-	height:2em;
 	font-size:2em;
-	line-height:2em;
 	margin-bottom:0.5em;
-	padding: 0 1em;
+	padding: 0.5rem 0.5rem;
 }
 .review-header > span{
 	float:left;
@@ -282,10 +280,8 @@ padding: 0;
 }
 
 .road-map-img-container > img{
-	background-color:red;
 	height:100%;
 	width:100%;
-
 }
 .address{
 	text-align:left;

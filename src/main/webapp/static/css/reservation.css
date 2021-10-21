@@ -17,9 +17,8 @@ html, body {
 }
 
 .top>span {
-	position: absolute;
-	left: 1em;
 	cursor: pointer;
+	float: left;
 }
 
 .product-img-container {

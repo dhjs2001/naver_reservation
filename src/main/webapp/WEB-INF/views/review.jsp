@@ -10,9 +10,8 @@
 <link rel="stylesheet" href="/static/css/detail.css">
 </head>
 <body>
-	<div class="review-header"
-		onclick="document.location.href= '/detail/${sessionScope.productId}'">
-		<span>←</span> ${detail.get(0).getDescription()}
+	<div class="review-header">
+		<span onclick="document.location.href= '/detail/${sessionScope.productId}'">←</span> ${detail.get(0).getDescription()}
 	</div>
 	<div class="review-container">
 		<div class="review-summary">

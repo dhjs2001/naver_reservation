@@ -115,7 +115,7 @@
 					<div class="graycard-bottom bottom card-parts">
 						<div class="bottom-inner">
 							<img alt="시계표시" src="/getImage/img/clock2.png"> <span>
-								예약 확정</span>
+								취소·환불</span>
 						</div>
 					</div>
 					<div class="graycard-right card-parts"></div>

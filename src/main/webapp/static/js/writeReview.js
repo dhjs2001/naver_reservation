@@ -49,7 +49,6 @@ function Validation(scoreInputId, textareaNodeId) {
 		}
 
 		return true;
-
 	}
 }
 function Thumbnail(fileInputNodeId, imgContainerNodeClass) {
@@ -69,7 +68,7 @@ function Thumbnail(fileInputNodeId, imgContainerNodeClass) {
 		let html = '';
 		for (let i = 0; i < filesLength; i++) {
 			const file = files[i];
-			if(!this.validImageType(file)) {
+			if (!this.validImageType(file)) {
 				alert('이미지가 아닌 파일이 존재합니다.');
 				node.value = null;
 				return;
@@ -122,12 +121,29 @@ function ajax(formNode, fileList) {
 
 	const request = new XMLHttpRequest();
 	request.addEventListener("load", (evt) => {
-		result = evt.target.responseText;
+		if (request.readyState === request.DONE) {
+			if (request.status === 200 || request.status === 201) {
+				document.location.href = "/review";
+			}else{
+				console.log('ajax 오류');
+			}
+		}
 	});
 
 	request.open("POST", "/writeReview", false);
 	request.send(formData);
 	return result;
+}
+
+function buttonColoring(){
+	const score = document.querySelector('.score');
+	const textarea = document.querySelector('#review-content');
+	const button = document.querySelector('button');
+	if(score&&textarea){
+		button.style.backgroundColor = '#3fdc3f';
+	}else{
+		button.style.backgroundColor = 'darkgray';
+	}
 }
 
 
@@ -152,14 +168,11 @@ window.addEventListener("load", () => {
 		let result;
 		if (validation.checkValidation()) {
 			result = ajax(evt.target, thumbnail.getFileBuffer());
-		} else {
-			return false;
 		}
-		if (result) {
-			document.location.href = "/review";
-		} else {
-			alert('ajax 오류');
-		}
-
+		return false;
+	});
+	
+	formNode.addEventListener("input",()=>{
+		buttonColoring();
 	});
 });

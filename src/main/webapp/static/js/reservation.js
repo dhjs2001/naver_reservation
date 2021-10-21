@@ -97,12 +97,10 @@ function tikets(leftButtons, rightButtons, tiketsInputs, price, totalPrice) {
 
 	this.chekCountAndColoring = function(direction, checkNumber, leftButtonNode, rightButtonNode, inputNode) {
 		if (!(direction != 'right' || direction != 'left')) {
-			console.log('잘못된 입력입니다. right 또는 left를 입력하시오.')
 			return 0;
 		}
 
 		if (!(checkNumber != 1 || checkNumber != 0)) {
-			console.log('두번째 패러미터 잘못 입력, 0 또는 1입력');
 			return 0;
 		}
 		const activeColor = 'green';
@@ -240,7 +238,6 @@ function purchaserInfo(tel, email, tikets, checkTerms, sumTiketsNode, formNode, 
 			this.activeButton(0);
 			return false;
 		} else {
-			console.log('전송성공');
 			this.activeButton(1);
 			return true;
 		}
@@ -265,10 +262,10 @@ function purchaserInfo(tel, email, tikets, checkTerms, sumTiketsNode, formNode, 
 	};
 	this.checkSumTikets = function(node) {
 		const value = node.innerText;
-		if (parseInt(value) == 0) {
-			return node;
-		} else {
+		if (parseInt(value) > 0) {
 			return true;
+		} else {
+			return node;
 		}
 	}
 
@@ -303,43 +300,27 @@ function purchaserInfo(tel, email, tikets, checkTerms, sumTiketsNode, formNode, 
 	}
 
 	this.activeButton = function() {
-		let num1 = 0;
-		let num2 = 0;
-		let num3 = 0;
-		let num4 = 0;
-		const tiketsNumber = this.checkTiketsNumber(this.tikets);
-		if (tiketsNumber) {
-			const checkSumTikets = this.checkSumTikets(this.sumTiketsNode);
-			if (checkSumTikets == true) {
-				num1 = 1;
-			}else{
-				num1 = 0;
+		if (this.checkTiketsNumber(this.tikets) == true
+			&& this.checkSumTikets(this.sumTiketsNode) == true
+			&& this.checkTel(this.reservationTel) == true
+			&& this.checkEmail(this.reservationEmail) == true
+			&& this.checkAgreeTerms(this.checkTerms) == true) {
+			const name = document.querySelector('#reservation-name');
+			if (name.value != '') {
+				this.buttonNode.style.backgroundColor = '#00cd33';
+			} else {
+				this.buttonNode.style.backgroundColor = '#b7b4b4';
+
 			}
-		}
-		const tel = this.checkTel(this.reservationTel);
-		if (tel == true) {
-			num2 = 1;
-		}else{
-			num2 = 0;
-		}
-		const email = this.checkEmail(this.reservationEmail);
-		if (email == true) {
-			num3 = 1;
-		}else{
-			num3 = 0;
-		}
-		const agreeTerms = this.checkAgreeTerms(this.checkTerms);
-		if (agreeTerms == true) {
-			num4 = 1;
-		}else{
-			num4 = 0;
-		}
-		let count = num1 + num2 + num3 + num4;
-		if (count != 4) {
-			this.buttonNode.style.backgroundColor = '#b7b4b4';
 		} else {
-			this.buttonNode.style.backgroundColor = '#00cd33';
+			this.buttonNode.style.backgroundColor = '#b7b4b4';
 		}
+		console.log(this.checkTiketsNumber(this.tikets)
+			+ this.checkSumTikets(this.sumTiketsNode)
+			+ this.checkTel(this.reservationTel)
+			+ this.checkEmail(this.reservationEmail)
+			+ this.checkAgreeTerms(this.checkTerms));
+
 	}
 
 
@@ -348,10 +329,14 @@ function purchaserInfo(tel, email, tikets, checkTerms, sumTiketsNode, formNode, 
 		const termsNodes = document.querySelectorAll('.' + termsNodeClass);
 		for (let i = 0; i < triggerNodes.length; i++) {
 			triggerNodes[i].addEventListener("click", () => {
-				if (termsNodes[i].clientHeight == 0) {
-					termsNodes[i].style.height = '10em';
-				} else {
+				if (termsNodes[i].clientHeight != 0) {
 					termsNodes[i].style.height = '0';
+					triggerNodes[i].innerHTML = "보기" + "<img src='/getImage/img/openTopClamp.png'>";
+				} else {
+					termsNodes[i].style.height = '10em';
+					triggerNodes[i].innerHTML  = "보지 않기" + "<img src='/getImage/img/openBottomClamp.png'>";
+					
+					
 				}
 			});
 		}
@@ -361,9 +346,17 @@ function purchaserInfo(tel, email, tikets, checkTerms, sumTiketsNode, formNode, 
 		this.formNode.addEventListener("change", () => {
 			this.activeButton();
 		});
+		const tiketButtons = document.querySelectorAll('.tiket-number-button');
+		tiketButtons.forEach((v) => {
+			console.log(v);
+			v.addEventListener("click", () => {
+				setTimeout(()=>{
+					this.activeButton();
+				});
+				
+			});
+		})
 	}
-
-
 }
 
 
