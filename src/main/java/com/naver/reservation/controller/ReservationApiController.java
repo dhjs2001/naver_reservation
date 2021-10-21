@@ -231,7 +231,7 @@ public class ReservationApiController {
 	// 한줄평(Comment) 등록
 	@PostMapping(path = "/reservations/{reservationInfoId}/")
 	public Map<String, Object> postRequestReservationsComment(@RequestParam("productId") int productId,
-			@PathVariable(name = "reservationInfoId") Integer reservationId, @RequestParam(value = "score") Integer score,
+			@PathVariable(name = "reservationInfoId") int reservationId, @RequestParam(value = "score") int score,
 			@RequestParam(value = "comment") String comment,
 			@RequestParam(value = "file", required = false) MultipartFile[] files) {
 
