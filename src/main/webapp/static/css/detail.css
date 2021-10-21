@@ -221,6 +221,7 @@ font-size: 1em;
 	padding: 0.5rem 0.5rem;
 }
 .review-header > span{
+	cursor:pointer;
 	float:left;
 }
 /* -- more review 페이지*/
@@ -314,10 +315,6 @@ padding: 0;
 .footer-detail{
 	font-size:0.6em
 }
-.review-header{
-	cursor:pointer;
-}
-.review-img{}
 .review-img > img{
 	margin-top: 0.5em;
 	height: 5em;
