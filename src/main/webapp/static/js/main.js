@@ -53,24 +53,26 @@ function Promotion(slideClass) {
 
 	this.promotionAction = function() {
 		const slide = this.slide;
-		const timeout = setTimeout(() => {
-			if (this.getPromotionSwitch() != true) {
-				return false;
-			}
-			if (this.getCount() != this.getLength()) {
-				if (this.getCount() == 1) {
-					slide.classList.add("animation");
-				}
-				slide.style.left = -this.getCount() * 100 + "%";
-				this.setCount(this.getCount() + 1);
+		setTimeout(() => {
 
+			if (!this.getPromotionSwitch()) {
 			} else {
-				slide.classList.remove("animation");
-				slide.style.left = 0;
-				this.setCount(1);
+				if (this.getCount() != this.getLength()) {
+					if (this.getCount() == 1) {
+						slide.classList.add("animation");
+					}
+					slide.style.left = -this.getCount() * 100 + "%";
+					this.setCount(this.getCount() + 1);
+
+				} else {
+					slide.classList.remove("animation");
+					slide.style.left = 0;
+					this.setCount(1);
+				}
 			}
 			this.promotionAction();
 		}, 5000);
+
 	}
 }
 
@@ -107,15 +109,12 @@ window.addEventListener("load", () => {
 	addEventOnCategory(category);
 
 });
+let timeOutVal = null;
 window.addEventListener("focus", () => {
 	promotionAction.setPromotionSwitch(true);
-	promotionAction.promotionAction();
 });
 window.addEventListener("blur", () => {
 	promotionAction.setPromotionSwitch(false);
-});
-window.addEventListener("resize", ()=>{
-	contentAnimation();
 });
 
 
@@ -152,33 +151,16 @@ function ajax(id, start, moreStandard) {
 }
 
 
-//content animation을 위한 이벤트
-function contentAnimation() {
-	setTimeout(() => {
-		const contentNode = document.querySelector('.content');
-		const productList1 = document.querySelector('.product-list1');
-		const productList2 = document.querySelector('.product-list2');
-		const height1 = productList1.offsetHeight;
-		const height2 = productList2.offsetHeight;
-		if (height1 > height2) {
-			contentNode.style.height = height1 + 'px';
-		} else {
-			contentNode.style.height = height2 + 'px';
-		}
-	}, 50);
-}
-
-
 function getItems(id, moreStandard) {
 	if (id == moreStandard.getCurrentId()) {
 		const addStartNumber = 4;
 		const start = moreStandard.getStart() + addStartNumber;
 		moreStandard.setStart(start);
-		ajax(id, moreStandard.getStart(), moreStandard).then((context) => deploy(context, 1, moreStandard)).then(() => contentAnimation());
+		ajax(id, moreStandard.getStart(), moreStandard).then((context) => deploy(context, 1, moreStandard));
 	} else {
 		moreStandard.setCurrentId(id);
 		moreStandard.setStart(0);
-		ajax(id, moreStandard.getStart(), moreStandard).then((context) => deploy(context, 0, moreStandard)).then(() => contentAnimation());
+		ajax(id, moreStandard.getStart(), moreStandard).then((context) => deploy(context, 0, moreStandard));
 	}
 }
 

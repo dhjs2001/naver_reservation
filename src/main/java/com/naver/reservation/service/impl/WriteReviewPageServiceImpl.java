@@ -39,7 +39,7 @@ public class WriteReviewPageServiceImpl implements WriteReviewPageService {
 
 	@Autowired
 	FileInfoDao fileInfoDao;
-	
+
 	@Autowired
 	DetailPageService detailPageService;
 
@@ -63,7 +63,7 @@ public class WriteReviewPageServiceImpl implements WriteReviewPageService {
 	@Override
 	@Transactional
 	public int insertAction(ReservationUserCommentImage object) {
-		
+
 		int key = reservationUsercommentImageDao.insertAction(object);
 		return key;
 	}
@@ -86,28 +86,25 @@ public class WriteReviewPageServiceImpl implements WriteReviewPageService {
 		Date now = new Date();
 		reservationUserComment.setCreateDate(now);
 		reservationUserComment.setModifyDate(now);
+
 		int reservationUserCommentId = insertAction(reservationUserComment);
-		
-		
+
 		fileInfo.setCreateDate(now);
 		fileInfo.setModifyDate(now);
-		
-		
 
 		int reservationInfoId = reservationUserComment.getReservationInfoId();
-		
+
 		fileInfo.setDeleteFlag(0);
+
 		int fileInfoId = insertAction(fileInfo);
-		
+
 		reservationUserCommentImage.setReservationInfoId(reservationInfoId);
 		reservationUserCommentImage.setReservationUserCommentId(reservationUserCommentId);
 		reservationUserCommentImage.setFileId(fileInfoId);
 
-		
 		insertAction(reservationUserCommentImage);
-		
 
-		return 0;
+		return reservationUserCommentId;
 	}
 
 	@Transactional
@@ -129,18 +126,17 @@ public class WriteReviewPageServiceImpl implements WriteReviewPageService {
 			reservationUserCommentImage.setReservationUserCommentId(reservationUserCommentId);
 			reservationUserCommentImage.setFileId(fileInfoId);
 			insertAction(reservationUserCommentImage);
-			
+
 		});
 
 		return reservationUserCommentId;
 	}
-	
-	
+
 	@Transactional
 	@Override
-	public Map<String, Object> writeReview(ReservationUserComment reservationUserComment, MultipartFile[] files){
+	public Map<String, Object> writeReview(ReservationUserComment reservationUserComment, MultipartFile[] files) {
 		int reservationUserCommentId;
-		Map<String,Object> result = new HashMap<String, Object>();
+		Map<String, Object> result = new HashMap<String, Object>();
 
 		int filesLength = 0;
 		if (files != null) {
@@ -184,14 +180,13 @@ public class WriteReviewPageServiceImpl implements WriteReviewPageService {
 			FileInfo fileInfo = new FileInfo();
 			MultipartFile file = files[0];
 			String fileName = uuid + file.getOriginalFilename();
-			String saveFileName = "img/" + uuid + files[0].getOriginalFilename();
+			String saveFileName = "review_img/" + uuid + files[0].getOriginalFilename();
 			String contentType = file.getContentType();
 			fileInfo.setFileName(fileName);
 			fileInfo.setSaveFileName(saveFileName);
 			fileInfo.setContentType(contentType);
-			reservationUserCommentId = insertAction(reservationUserComment, fileInfo);
 
-			try (FileOutputStream fos = new FileOutputStream("/tmp/review_img" + fileName);
+			try (FileOutputStream fos = new FileOutputStream("/tmp/review_img/" + fileName);
 					InputStream is = file.getInputStream();) {
 				int readCount = 0;
 				byte[] buffer = new byte[1024];
@@ -202,14 +197,17 @@ public class WriteReviewPageServiceImpl implements WriteReviewPageService {
 			} catch (Exception e) {
 				throw new RuntimeException("file Save Error");
 			}
+
+			reservationUserCommentId = insertAction(reservationUserComment, fileInfo);
+
 			result.put("review", detailPageService.getReviewByReservationCommentId(reservationUserCommentId));
 			return result;
 		}
 
-		reservationUserCommentId= insertAction(reservationUserComment);
+		reservationUserCommentId = insertAction(reservationUserComment);
 		result.put("review", detailPageService.getReviewByReservationCommentId(reservationUserCommentId));
 		return result;
-		
+
 	}
 
 }

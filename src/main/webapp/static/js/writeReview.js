@@ -69,7 +69,7 @@ function Thumbnail(fileInputNodeId, imgContainerNodeClass) {
 		let html = '';
 		for (let i = 0; i < filesLength; i++) {
 			const file = files[i];
-			if (!this.validImageType(file)) {
+			if(!this.validImageType(file)) {
 				alert('이미지가 아닌 파일이 존재합니다.');
 				node.value = null;
 				return;

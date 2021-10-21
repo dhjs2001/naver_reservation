@@ -15,7 +15,7 @@ public class FileController {
 	public void getRequestGetImage(HttpServletResponse response, @PathVariable("directory") String directory, @PathVariable("fileName")String fileName) {
 
         // 직접 파일 정보를 변수에 저장해 놨지만, 이 부분이 db에서 읽어왔다고 가정한다.
-		String saveFileName = "c:/tmp/"+directory+"/"+fileName;
+		String saveFileName = "/tmp/"+directory+"/"+fileName;
 		
 		String contentType = "image/png";
         response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\";");
@@ -39,7 +39,7 @@ public class FileController {
             		out.write(buffer,0,readCount);
             }
         }catch(Exception ex){
-            throw new RuntimeException("file Save Error");
+            throw new RuntimeException("file get Error");
         }
 	}
 }

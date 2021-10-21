@@ -17,8 +17,7 @@
 	<div class="review-container">
 		<div class="review-summary">
 			<span>예매자 한줄평</span><br>
-			<div class="filled-stars">★</div>
-			<div class="empty-stars">★</div>
+			<div class="filled-stars">★</div><div class="empty-stars">★</div>
 			<span class="average-rate">${reviewRate }</span><span
 				style="color: gray">/</span><span class="max-rate">5.0</span>
 			<div class="number-box">

@@ -223,7 +223,6 @@ public class ReservationApiController {
 	@PutMapping(path = "/reservations/{reservationId}")
 	public Map<String, Object> putReqeustReservations(@PathVariable(name = "reservationId") int reservationId) {
 
-		System.out.println(reservationId);
 		Map<String, Object> map = reservationPageservice.cancelReservation(reservationId);
 		return map;
 
@@ -235,10 +234,6 @@ public class ReservationApiController {
 			@PathVariable(name = "reservationInfoId") Integer reservationId, @RequestParam(value = "score") Integer score,
 			@RequestParam(value = "comment") String comment,
 			@RequestParam(value = "file", required = false) MultipartFile[] files) {
-		System.out.println(productId);
-		System.out.println(reservationId);
-		System.out.println(score);
-		System.out.println(comment);
 
 		ReservationUserComment reservationUserComment = new ReservationUserComment();
 		reservationUserComment.setProductId(productId);
@@ -263,6 +258,7 @@ public class ReservationApiController {
 	}
 	
 	@GetMapping(path="/categories")
+
 	public List<Category> getRequestCategories() {
 		return mainPageService.getCategories();
 	}

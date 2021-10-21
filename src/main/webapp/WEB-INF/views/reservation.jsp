@@ -98,15 +98,15 @@
 				</div>
 				<div class="specific-info-input">
 					<input id="reservation-name" type="text" required placeholder="네이버"
-						name="reservationName"
-						<c:if test='${email !="null" }'>
-						value = ${email }
-						</c:if>
-						><br> <input
+						name="reservationName"><br> <input
 						id="reservation-tel" type="text" placeholder="휴대폰 입력 시 예매내역 문자발송"
 						name="reservationTel"><br> <input
 						id="reservation-email" type="text"
-						placeholder="crong@codesquad.kr" name="reservationEmail"><br>
+						placeholder="crong@codesquad.kr" name="reservationEmail"
+						<c:if test='${email !="null" }'>
+						value = ${email }
+						</c:if>
+						><br>
 					<span class="date"></span>, 총 <span
 						class="tikets-sum">0매</span>
 				</div>
